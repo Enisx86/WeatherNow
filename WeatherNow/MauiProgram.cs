@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using WeatherNow.Services;
 
 namespace WeatherNow
 {
@@ -14,6 +15,8 @@ namespace WeatherNow
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
