@@ -6,5 +6,5 @@ public interface IWeatherService
     Task<GeocodingResult?> GetGeocodedCityAsync(string cityName);
 
     Task<Weather?> GetWeatherAsync(GeocodingResult city);
-    Task<Weather?> GetWeatherAsync(double longitude, double latitude); // keeping latitude & longitude in case of precise GPS usage??
+    Task<Weather?> GetWeatherAsync(double latitude, double longitude); // keeping latitude & longitude in case of precise GPS usage??
 }
