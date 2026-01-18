@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using WeatherNow.Services;
+using WeatherNow.ViewModels;
 
 namespace WeatherNow
 {
@@ -17,6 +18,9 @@ namespace WeatherNow
                 });
 
             builder.Services.AddSingleton<IWeatherService, WeatherService>();
+            builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddSingleton<MainPage>();
+
 
 #if DEBUG
     		builder.Logging.AddDebug();
