@@ -3,7 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:drawables="clr-namespace:WeatherNow.Drawables"
              x:Class="WeatherNow.Controls.ProgressMeter">
+
+    <!--
+        EXAMPLE USAGE IN PAGE:
+        xmlns:Controls="clr-namespace:WeatherNow.Controls"
     
+        <Controls:ProgressMeter Progress="0.5" />
+    -->
+
     <GraphicsView x:Name="MeterGraphicsView" HeightRequest="64" WidthRequest="64">
         <GraphicsView.Drawable>
             <drawables:MeterDrawable x:Name="MeterDrawable" Progress="0.75" />
