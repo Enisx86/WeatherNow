@@ -19,3 +19,408 @@
     </ScrollView>
 
 </ContentPage>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Controls="clr-namespace:WeatherNow.Controls"
+    x:Class="WeatherNow.MainPage"
+    BackgroundColor="#F2F5F9">
+
+    <Grid>
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+            <VerticalStackLayout Padding="20, 60, 20, 120">
+                <VerticalStackLayout Padding="20" Spacing="20">
+
+                    <!-- Main weather -->
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                        <!-- Location -->
+                        <Label
+                    Text="Zenica"
+                    FontSize="28"
+                    FontAttributes="Bold"
+                    TextColor="#222"
+                    HorizontalTextAlignment="Center"/>
+
+                        <!-- Current weather-->
+                        <Label
+                    Text="Clear"
+                    FontSize="14"
+                    TextColor="#666"
+                    HorizontalTextAlignment="Center"/>
+
+                        <!-- Today's temperature range-->
+                        <Label
+                    Text="0°/-6°"
+                    FontSize="14"
+                    TextColor="#666"
+                    HorizontalTextAlignment="Center" />
+
+                        <!-- Icon of current weather -->
+                        <Image
+                    Source="dotnet_bot.png"
+                    WidthRequest="120"
+                    HeightRequest="120" />
+
+                        <!-- Current temperature -->
+                        <Label
+                    Text="-2°"
+                    FontSize="72"
+                    FontAttributes="Bold"
+                    TextColor="#222"
+                    HorizontalTextAlignment="Center" />
+
+                        <!-- Feels like -->
+                        <Label
+                    Text="Feels like -1°"
+                    FontSize="14"
+                    TextColor="#666"
+                    HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- Small forecast rows: -->
+                    <VerticalStackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+
+                        <!-- Today row -->
+                        <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
+                            <Label Text="Today" FontSize="16" TextColor="#222" 
+                           VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+                            <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40" 
+                           HorizontalOptions="Center"/>
+                            <Label Text="-6°/0°" FontSize="14" TextColor="#666" 
+                           VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                        </Grid>
+
+                        <!-- Tomorrow row -->
+                        <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
+                            <Label Text="Tomorrow" FontSize="16" TextColor="#222" 
+                           VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+                            <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40" 
+                           HorizontalOptions="Center"/>
+                            <Label Text="-7°/0°" FontSize="14" TextColor="#666" 
+                           VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                        </Grid>
+
+                        <!-- Wednesday row -->
+                        <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
+                            <Label Text="Wednesday" FontSize="16" TextColor="#222" 
+                           VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+                            <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40" 
+                           HorizontalOptions="Center"/>
+                            <Label Text="-2°/2°" FontSize="14" TextColor="#666" 
+                           VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                        </Grid>
+
+                    </VerticalStackLayout>
+
+                    <!-- 24-Hour forecast: -->
+                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                        <HorizontalStackLayout Spacing="20" Padding="0,10,0,10" HorizontalOptions="Center">
+
+                            <!-- Hour 1 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-2°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="01:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 2 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="02:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 3 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="0°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="03:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 4 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="04:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 5 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-2°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="05:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 6 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="06:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 7 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="0°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="07:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 8 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="08:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 9 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-2°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="09:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 10 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="10:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 11 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="0°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="11:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 12 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="12:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 13 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-2°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="13:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 14 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="14:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 15 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="0°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="15:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 16 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="16:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 17 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-2°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="17:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 18 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="18:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 19 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="0°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="19:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 20 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="20:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 21 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-2°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="21:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 22 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="22:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 23 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="0°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="5 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="23:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Hour 24 -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label Text="-1°" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
+                                <Label Text="6 km/h" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                <Label Text="24:00" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                        </HorizontalStackLayout>
+                    </ScrollView>
+
+                    <!-- Weather details: -->
+                    <VerticalStackLayout Spacing="15" HorizontalOptions="FillAndExpand">
+
+                        <Grid ColumnDefinitions="*,*"
+                      RowDefinitions="Auto,Auto,Auto"
+                      ColumnSpacing="15"
+                      RowSpacing="15"
+                      HorizontalOptions="FillAndExpand">
+
+                            <!-- Humidity -->
+                            <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Padding="15">
+                                <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="Humidity" FontSize="14" TextColor="#666"
+                                   HorizontalTextAlignment="Start"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Wind -->
+                            <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Padding="15">
+                                <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="Wind" FontSize="14" TextColor="#666"
+                                   HorizontalTextAlignment="Start"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Pressure -->
+                            <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Padding="15">
+                                <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="Pressure" FontSize="14" TextColor="#666"
+                                   HorizontalTextAlignment="Start"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Visibility -->
+                            <Border
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Padding="15">
+                                <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="Visibility" FontSize="14" TextColor="#666"
+                                   HorizontalTextAlignment="Start"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- UV Index -->
+                            <Border
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Padding="15">
+                                <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="UV Index" FontSize="14" TextColor="#666"
+                                   HorizontalTextAlignment="Start"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Current sun position (at day) / Current moon phase (at night) -->
+                            <Border
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Padding="15">
+                                <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="Sunset" FontSize="14" TextColor="#666"
+                                   HorizontalTextAlignment="Start"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                        </Grid>
+
+                        <!-- Air quality index -->
+                        <Border
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White"
+                    Padding="15"
+                    HorizontalOptions="FillAndExpand">
+
+                            <HorizontalStackLayout Spacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                                <Label Text="AQI 114" FontSize="16" FontAttributes="Bold" TextColor="#666" VerticalTextAlignment="Center"/>
+                                <Label Text="Moderate" FontSize="14" TextColor="#666" VerticalTextAlignment="Center"/>
+                                <Label Text="Wear a mask" FontSize="14" TextColor="#666" VerticalTextAlignment="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Controls:FloatingNavbar ActiveTab="Home" />
+    </Grid>
+
+</ContentPage>
