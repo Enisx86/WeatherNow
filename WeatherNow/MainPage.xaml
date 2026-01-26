@@ -1,24 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:WeatherNow.ViewModels"
-             Shell.NavBarIsVisible="False"
-             x:Class="WeatherNow.MainPage"
-             x:DataType="vm:MainViewModel">
-
-    <ScrollView Padding="20">
-        <VerticalStackLayout>
-            <Grid ColumnDefinitions="3*,*" ColumnSpacing="15" Margin="0,0,0,15">
-                <Entry Grid.Column="0" Text="{Binding SearchCityText, Mode=TwoWay}" ReturnCommand="{Binding SearchCommand}" />
-                <Button Grid.Column="1" Text="Search" Command="{Binding SearchCommand}" />
-            </Grid>
-            <ActivityIndicator IsRunning="{Binding IsSearching}" IsVisible="{Binding IsSearching}" />
-            <Label Text="{Binding SearchResultText}" FontSize="24" 
-                   HorizontalOptions="Center" />
-        </VerticalStackLayout>
-    </ScrollView>
-
-</ContentPage>
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
