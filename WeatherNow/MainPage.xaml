@@ -76,19 +76,10 @@
                                       VerticalTextAlignment="Center" HorizontalOptions="Start"/>
                                 <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
                                        HorizontalOptions="Center"/>
-                                <Label Text="{Binding Weather.daily.AverageTemperatureRange}"
+                                <Label Text="{Binding Weather.daily.TodayTemperatureRange}"
                                        FontSize="14" TextColor="#666"
                                        VerticalTextAlignment="Center" HorizontalOptions="End"/>
                             </Grid>
-                        <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
-                            <Label Text="Today" FontSize="16" TextColor="#222" 
-                           VerticalTextAlignment="Center" HorizontalOptions="Start"/>
-                            <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40" 
-                           HorizontalOptions="Center"/>
-                            <Label Text="{Binding Weather.daily.TodayTemperatureRange}" FontSize="14" TextColor="#666" 
-                           VerticalTextAlignment="Center" HorizontalOptions="End"/>
-                        </Grid>
-
                         </Border>
 
 
@@ -105,19 +96,10 @@
                                       VerticalTextAlignment="Center" HorizontalOptions="Start"/>
                                 <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
                                        HorizontalOptions="Center"/>
-                                <Label Text="{Binding Weather.daily.AverageTemperatureRange}"
+                                <Label Text="{Binding Weather.daily.TodayTemperatureRange}"
                                        FontSize="14" TextColor="#666"
                                        VerticalTextAlignment="Center" HorizontalOptions="End"/>
                             </Grid>
-                        <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
-                            <Label Text="Tomorrow" FontSize="16" TextColor="#222" 
-                           VerticalTextAlignment="Center" HorizontalOptions="Start"/>
-                            <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40" 
-                           HorizontalOptions="Center"/>
-                            <Label Text="{Binding Weather.daily.TomorrowTemperatureRange}" FontSize="14" TextColor="#666" 
-                           VerticalTextAlignment="Center" HorizontalOptions="End"/>
-                        </Grid>
-
                         </Border>
 
                         <!-- Wednesday row -->
@@ -133,19 +115,10 @@
                                       VerticalTextAlignment="Center" HorizontalOptions="Start"/>
                                 <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
                                        HorizontalOptions="Center"/>
-                                <Label Text="{Binding Weather.daily.AverageTemperatureRange}"
+                                <Label Text="{Binding Weather.daily.TodayTemperatureRange}"
                                        FontSize="14" TextColor="#666"
                                        VerticalTextAlignment="Center" HorizontalOptions="End"/>
                             </Grid>
-                        <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
-                            <Label Text="{Binding Weather.daily.DayThreeName}" FontSize="16" TextColor="#222" 
-                           VerticalTextAlignment="Center" HorizontalOptions="Start"/>
-                            <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40" 
-                           HorizontalOptions="Center"/>
-                            <Label Text="{Binding Weather.daily.DayThreeTemperatureRange}" FontSize="14" TextColor="#666" 
-                           VerticalTextAlignment="Center" HorizontalOptions="End"/>
-                        </Grid>
-
                         </Border>
 
                     </VerticalStackLayout>
