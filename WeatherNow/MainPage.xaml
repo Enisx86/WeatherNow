@@ -7,7 +7,7 @@
     xmlns:Controls="clr-namespace:WeatherNow.Controls"
     x:DataType="vm:MainViewModel"
     x:Class="WeatherNow.MainPage"
-    BackgroundColor="#F2F5F9">
+    BackgroundColor="#EAF4FF">
 
     <Grid>
         <ScrollView>
@@ -64,6 +64,22 @@
                     <VerticalStackLayout Spacing="10" HorizontalOptions="FillAndExpand">
 
                         <!-- Today row -->
+                        <Border
+                            Stroke="#C7DEF5"
+                            StrokeThickness="1"
+                            BackgroundColor="#F4F9FF"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="12">
+
+                            <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
+                                <Label Text="Today" FontSize="16" TextColor="#222"
+                                      VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="{Binding Weather.daily.AverageTemperatureRange}"
+                                       FontSize="14" TextColor="#666"
+                                       VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                            </Grid>
                         <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
                             <Label Text="Today" FontSize="16" TextColor="#222" 
                            VerticalTextAlignment="Center" HorizontalOptions="Start"/>
@@ -73,7 +89,26 @@
                            VerticalTextAlignment="Center" HorizontalOptions="End"/>
                         </Grid>
 
+                        </Border>
+
+
                         <!-- Tomorrow row -->
+                        <Border
+                            Stroke="#C7DEF5"
+                            StrokeThickness="1"
+                            BackgroundColor="#F4F9FF"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="12">
+
+                            <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
+                                <Label Text="Tomorrow" FontSize="16" TextColor="#222"
+                                      VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="{Binding Weather.daily.AverageTemperatureRange}"
+                                       FontSize="14" TextColor="#666"
+                                       VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                            </Grid>
                         <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
                             <Label Text="Tomorrow" FontSize="16" TextColor="#222" 
                            VerticalTextAlignment="Center" HorizontalOptions="Start"/>
@@ -83,7 +118,25 @@
                            VerticalTextAlignment="Center" HorizontalOptions="End"/>
                         </Grid>
 
+                        </Border>
+
                         <!-- Wednesday row -->
+                        <Border
+                            Stroke="#C7DEF5"
+                            StrokeThickness="1"
+                            BackgroundColor="#F4F9FF"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="12">
+
+                            <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
+                                <Label Text="Wednesday" FontSize="16" TextColor="#222"
+                                      VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="{Binding Weather.daily.AverageTemperatureRange}"
+                                       FontSize="14" TextColor="#666"
+                                       VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                            </Grid>
                         <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center" Padding="0,0,0,0" HorizontalOptions="FillAndExpand">
                             <Label Text="{Binding Weather.daily.DayThreeName}" FontSize="16" TextColor="#222" 
                            VerticalTextAlignment="Center" HorizontalOptions="Start"/>
@@ -92,6 +145,8 @@
                             <Label Text="{Binding Weather.daily.DayThreeTemperatureRange}" FontSize="14" TextColor="#666" 
                            VerticalTextAlignment="Center" HorizontalOptions="End"/>
                         </Grid>
+
+                        </Border>
 
                     </VerticalStackLayout>
 
@@ -126,7 +181,9 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         StrokeShape="RoundRectangle 20"
-                        BackgroundColor="White"
+                        BackgroundColor="#F4F9FF"
+                        StrokeThickness="1"
+                        Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
                                     <FlexLayout JustifyContent="SpaceBetween" Margin="0,0,0,10">
@@ -144,7 +201,9 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         StrokeShape="RoundRectangle 20"
-                        BackgroundColor="White"
+                        BackgroundColor="#F4F9FF"
+                        StrokeThickness="1"
+                        Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
                                     <FlexLayout JustifyContent="SpaceBetween" Margin="0,0,0,10">
@@ -162,7 +221,9 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         StrokeShape="RoundRectangle 20"
-                        BackgroundColor="White"
+                        BackgroundColor="#F4F9FF"
+                        StrokeThickness="1"
+                        Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
                                     <FlexLayout JustifyContent="Center" Margin="0,0,0,10" Wrap="Wrap">
@@ -180,7 +241,9 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         StrokeShape="RoundRectangle 20"
-                        BackgroundColor="White"
+                        BackgroundColor="#F4F9FF"
+                        StrokeThickness="1"
+                        Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
                                     <Label Text="Visibility" FontSize="14" TextColor="#666"
@@ -193,7 +256,9 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         StrokeShape="RoundRectangle 20"
-                        BackgroundColor="White"
+                        BackgroundColor="#F4F9FF"
+                        StrokeThickness="1"
+                        Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
                                     <Label Text="UV Index" FontSize="14" TextColor="#666"
@@ -206,7 +271,9 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         StrokeShape="RoundRectangle 20"
-                        BackgroundColor="White"
+                        BackgroundColor="#F4F9FF"
+                        StrokeThickness="1"
+                        Stroke="#C7DEF5" 
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
                                     <Label Text="Sunset" FontSize="14" TextColor="#666"
@@ -219,14 +286,16 @@
                         <!-- Air quality index -->
                         <Border
                     StrokeShape="RoundRectangle 20"
-                    BackgroundColor="White"
+                    BackgroundColor="#F4F9FF"
+                    StrokeThickness="1"
+                    Stroke="#FF9800"
                     Padding="15"
                     HorizontalOptions="FillAndExpand">
 
                             <HorizontalStackLayout Spacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
-                                <Label Text="AQI 114" FontSize="16" FontAttributes="Bold" TextColor="#666" VerticalTextAlignment="Center"/>
-                                <Label Text="Moderate" FontSize="14" TextColor="#666" VerticalTextAlignment="Center"/>
-                                <Label Text="Wear a mask" FontSize="14" TextColor="#666" VerticalTextAlignment="Center"/>
+                                <Label Text="AQI 114" FontSize="16" FontAttributes="Bold" TextColor="#FF9800" VerticalTextAlignment="Center"/>
+                                <Label Text="Moderate" FontSize="14" TextColor="#FF9800" VerticalTextAlignment="Center"/>
+                                <Label Text="Wear a mask" FontSize="14" TextColor="#FF9800" VerticalTextAlignment="Center"/>
                             </HorizontalStackLayout>
                         </Border>
 
