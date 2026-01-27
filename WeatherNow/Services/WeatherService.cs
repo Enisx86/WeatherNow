@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json;
 using WeatherNow.Models;
 namespace WeatherNow.Services;
 
@@ -44,28 +45,31 @@ public class WeatherService : IWeatherService
         } 
         catch (Exception e)
         {
+            await Shell.Current.DisplayAlert("Error", $"Geocoding API failure. Message: {e.Message}", "OK");
             return null;
         }
     }
 
     public async Task<WeatherResponse?> GetWeatherAsync(GeocodingResult city)
     {
-        WeatherResponse? weather = await GetWeatherAsync(city.Coordinates.Latitude, city.Coordinates.Longitude);
+        WeatherResponse? weather = await GetWeatherAsync(city.latitude, city.longitude);
 
         return weather;
     }
 
     public async Task<WeatherResponse?> GetWeatherAsync(double latitude, double longitude)
     {
-        string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=uv_index_max,sunset,weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,wind_speed_10m,temperature_80m,weather_code&current=temperature_2m,relative_humidity_2m,surface_pressure,wind_speed_10m,weather_code&timezone=auto&forecast_days=3&forecast_hours=24";
+        string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=uv_index_max,sunset,weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,wind_speed_10m,temperature_80m,weather_code&current=temperature_2m,apparent_temperature,relative_humidity_2m,surface_pressure,wind_speed_10m,weather_code&timezone=auto&forecast_days=3&forecast_hours=24";
 
         try
         {
             WeatherResponse? response = await _client.GetFromJsonAsync<WeatherResponse>(url);
+
             return response;
         }
         catch (Exception e)
         {
+            await Shell.Current.DisplayAlert("Error", $"Weather API failure. Message: {e.Message}", "OK");
             return null;
         }
     }

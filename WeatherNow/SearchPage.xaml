@@ -15,8 +15,10 @@
     <Grid>
         <ScrollView>
             <VerticalStackLayout>
-                <Grid ColumnDefinitions="2*,*" Margin="10">
-                    <Entry Grid.Column="0" Text="{Binding SearchBarText, Mode=TwoWay}" Placeholder="Search here..."  />
+                <Grid ColumnDefinitions="2*,*" Margin="10" ColumnSpacing="10">
+                    <Border Grid.Column="0" Stroke="#666" Padding="15,0" StrokeShape="RoundRectangle 8">
+                        <Entry Text="{Binding SearchBarText, Mode=TwoWay}" Placeholder="Search here..."  />
+                    </Border>
                     <Button Grid.Column="1" Text="Search" Command="{Binding SearchCommand}" />
                 </Grid>
                 <ActivityIndicator IsRunning="{Binding IsSearching}" IsVisible="{Binding IsSearching}" />
@@ -30,8 +32,13 @@
                                     BackgroundColor="White"
                                     Padding="20">
                                     <Border.Shadow>
-                                        <Shadow Brush="Black" Offset="2,2" Radius="5" Opacity="0.2" />
+                                        <Shadow Brush="Black" Offset="2,2" Opacity="0.2" />
                                     </Border.Shadow>
+
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnCardTapped" />
+                                    </Border.GestureRecognizers>
+                                    
                                     <Grid ColumnDefinitions="*,Auto">
                                         <VerticalStackLayout Grid.Column="0">
                                             <Label Text="{Binding name}" FontSize="20" />

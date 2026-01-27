@@ -1,5 +1,25 @@
 ﻿namespace WeatherNow.Models;
 
+// because multiple models can utilize it
+public static class WeatherExtensions
+{
+    public static string ToDescription(this WeatherCode code)
+    {
+        return code switch
+        {
+            WeatherCode.ClearSky => "Clear",
+            WeatherCode.MainlyClear => "Mainly Clear",
+            WeatherCode.PartlyCloudy => "Partly Cloudy",
+            WeatherCode.Overcast => "Overcast",
+            WeatherCode.Fog or WeatherCode.DepositingRimeFog => "Foggy",
+            WeatherCode.DrizzleLight or WeatherCode.DrizzleModerate or WeatherCode.DrizzleDense => "Drizzling",
+            WeatherCode.RainSlight or WeatherCode.RainModerate or WeatherCode.RainHeavy => "Raining",
+            WeatherCode.Thunderstorm => "Thunderstorm",
+            _ => "Unknown"
+        };
+    }
+}
+
 public enum WeatherCode
 {
     ClearSky = 0,
@@ -29,7 +49,7 @@ public class WeatherResponse
     public int utc_offset_seconds { get; set; }
     public string timezone { get; set; }
     public string timezone_abbreviation { get; set; }
-    public int elevation { get; set; }
+    public double elevation { get; set; }
     public CurrentUnits current_units { get; set; }
     public Current current { get; set; }
     public HourlyUnits hourly_units { get; set; }
@@ -54,10 +74,17 @@ public class Current
     public string time { get; set; }
     public int interval { get; set; }
     public float temperature_2m { get; set; }
+    public float apparent_temperature { get; set; }
     public int relative_humidity_2m { get; set; }
     public float surface_pressure { get; set; }
     public float wind_speed_10m { get; set; }
     public int weather_code { get; set; }
+
+    private WeatherCode _weatherDescription => (WeatherCode) weather_code;
+    public string WeatherDescription => _weatherDescription.ToDescription();
+
+    public string TemperatureText => $"{temperature_2m}°";
+    public string ApparentTemperatureText => $"Feels like {apparent_temperature}°";
 }
 
 public class HourlyUnits
@@ -96,4 +123,9 @@ public class Daily
     public int[] weather_code { get; set; }
     public float[] temperature_2m_max { get; set; }
     public float[] temperature_2m_min { get; set; }
+
+    public float AverageTemperatureMax => temperature_2m_max.Max();
+    public float AverageTemperatureMin => temperature_2m_max.Min();
+
+    public string AverageTemperatureRange => $"{AverageTemperatureMin:=}°/{AverageTemperatureMax}°";
 }

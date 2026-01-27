@@ -1,5 +1,4 @@
-﻿using AndroidX.AppCompat.View.Menu;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using WeatherNow.Models;
@@ -12,6 +11,7 @@ public class SearchPageViewModel : INotifyPropertyChanged
     private readonly IWeatherService _weatherService; // MauiProgram.cs
 
     public ICommand SearchCommand { get; set; }
+    public ICommand SelectCityCommand { get; set; } // sends them back to MainPage with updated city info
 
     public ObservableCollection<GeocodingResult> AvailableCities { get; set; } = new();
 
@@ -47,7 +47,20 @@ public class SearchPageViewModel : INotifyPropertyChanged
     public SearchPageViewModel(IWeatherService weatherService)
     {
         _weatherService = weatherService;
+
         SearchCommand = new Command(SearchCities);
+        SelectCityCommand = new Command<GeocodingResult>(SelectCity);
+    }
+
+    private async void SelectCity(GeocodingResult city)
+    {
+        // https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-10.0
+        var navigationParameter = new Dictionary<string, object>
+        {
+            { "City", city }
+        };
+
+        await Shell.Current.GoToAsync("//MainPage", navigationParameter); // routes are registered in AppShell.xaml
     }
 
     private async void SearchCities()

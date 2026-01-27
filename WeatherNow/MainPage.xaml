@@ -2,20 +2,22 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:WeatherNow.ViewModels"
     xmlns:Controls="clr-namespace:WeatherNow.Controls"
+    x:DataType="vm:MainViewModel"
     x:Class="WeatherNow.MainPage"
     BackgroundColor="#F2F5F9">
 
     <Grid>
-        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-
-            <VerticalStackLayout Padding="20, 60, 20, 120">
-                <VerticalStackLayout Padding="20" Spacing="20">
+        <ScrollView>
+            <VerticalStackLayout Padding="20, 60, 20, 120" VerticalOptions="Center">
+                <Label Text="Search for a city to begin." IsVisible="{Binding IsNotValidCity}" FontSize="20" HorizontalOptions="Center" />
+                <VerticalStackLayout Padding="20" Spacing="20" IsVisible="{Binding IsValidCity}">
                     <!-- Main weather -->
                     <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
                         <!-- Location -->
                         <Label
-                    Text="Zenica"
+                    Text="{Binding City.name}"
                     FontSize="28"
                     FontAttributes="Bold"
                     TextColor="#222"
@@ -23,14 +25,14 @@
 
                         <!-- Current weather-->
                         <Label
-                    Text="Clear"
+                    Text="{Binding Weather.current.WeatherDescription}"
                     FontSize="14"
                     TextColor="#666"
                     HorizontalTextAlignment="Center"/>
 
                         <!-- Today's temperature range-->
                         <Label
-                    Text="0°/-6°"
+                    Text="{Binding Weather.daily.AverageTemperatureRange}"
                     FontSize="14"
                     TextColor="#666"
                     HorizontalTextAlignment="Center" />
@@ -43,7 +45,7 @@
 
                         <!-- Current temperature -->
                         <Label
-                    Text="-2°"
+                    Text="{Binding Weather.current.TemperatureText}"
                     FontSize="72"
                     FontAttributes="Bold"
                     TextColor="#222"
@@ -51,7 +53,7 @@
 
                         <!-- Feels like -->
                         <Label
-                    Text="Feels like -1°"
+                    Text="{Binding Weather.current.ApparentTemperatureText}"
                     FontSize="14"
                     TextColor="#666"
                     HorizontalTextAlignment="Center" />
@@ -66,7 +68,7 @@
                            VerticalTextAlignment="Center" HorizontalOptions="Start"/>
                             <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40" 
                            HorizontalOptions="Center"/>
-                            <Label Text="-6°/0°" FontSize="14" TextColor="#666" 
+                            <Label Text="{Binding Weather.daily.AverageTemperatureRange}" FontSize="14" TextColor="#666" 
                            VerticalTextAlignment="Center" HorizontalOptions="End"/>
                         </Grid>
 
