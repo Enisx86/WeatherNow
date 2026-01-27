@@ -12,7 +12,7 @@ public partial class ProgressMeter : ContentView
         });
 
     public static readonly BindableProperty ThicknessProperty =
-    BindableProperty.Create(nameof(Progress), typeof(float), typeof(ProgressMeter), 10f,
+    BindableProperty.Create(nameof(Thickness), typeof(float), typeof(ProgressMeter), 10f,
         propertyChanged: (bindable, oldValue, newValue) => {
             if (bindable is not ProgressMeter control) return;
 

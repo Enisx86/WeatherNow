@@ -2,7 +2,7 @@
 
 // because multiple models can utilize it
 public static class WeatherExtensions
-{
+{    
     public static string ToDescription(this WeatherCode code)
     {
         return code switch
@@ -77,14 +77,19 @@ public class Current
     public float apparent_temperature { get; set; }
     public int relative_humidity_2m { get; set; }
     public float surface_pressure { get; set; }
+    public float pressure_msl { get; set; }
     public float wind_speed_10m { get; set; }
     public int weather_code { get; set; }
 
     private WeatherCode _weatherDescription => (WeatherCode) weather_code;
     public string WeatherDescription => _weatherDescription.ToDescription();
 
-    public string TemperatureText => $"{temperature_2m}°";
-    public string ApparentTemperatureText => $"Feels like {apparent_temperature}°";
+    public string TemperatureText => $"{temperature_2m:0}°";
+    public string ApparentTemperatureText => $"Feels like {apparent_temperature:0}°";
+
+    public double HumidityPercent => relative_humidity_2m / 100.0; // ex. 75 -> 0.75
+    public double WindSpeedPercent => Math.Clamp(wind_speed_10m / 100.0, 0, 1.0);
+    public double PressurePercent => Math.Clamp((pressure_msl - 950.0) / (1050.0 - 950.0), 0.0, 1.0); // 950 hPA low, 1050 hPA high
 }
 
 public class HourlyUnits
@@ -103,6 +108,13 @@ public class Hourly
     public float[] wind_speed_10m { get; set; }
     public float[] temperature_80m { get; set; }
     public int[] weather_code { get; set; }
+}
+
+public class HourlyForecast // for UI
+{
+    public string Time { get; set; }
+    public string WindSpeed { get; set; }
+    public string Temperature { get; set; }
 }
 
 public class DailyUnits
@@ -124,8 +136,10 @@ public class Daily
     public float[] temperature_2m_max { get; set; }
     public float[] temperature_2m_min { get; set; }
 
-    public float AverageTemperatureMax => temperature_2m_max.Max();
-    public float AverageTemperatureMin => temperature_2m_max.Min();
+    public string TodayTemperatureRange => $"{temperature_2m_min[0]:0}°/{temperature_2m_max[0]:0}°";
+    public string TomorrowTemperatureRange => $"{temperature_2m_min[1]:0}°/{temperature_2m_max[1]:0}";
+    public string DayThreeTemperatureRange => $"{temperature_2m_min[2]:0}°/{temperature_2m_max[2]:0}°";
 
-    public string AverageTemperatureRange => $"{AverageTemperatureMin:=}°/{AverageTemperatureMax}°";
+    public string DayThreeName => DateTime.Parse(time[2]).ToString("dddd");
+
 }
