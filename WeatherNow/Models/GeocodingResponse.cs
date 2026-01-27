@@ -14,7 +14,13 @@ public class GeocodingResult
     public double elevation { get; set; }
     public string timezone { get; set; }
     public string country { get; set; }
+    public string country_code { get; set; }
 
+    public string CountryEmoji => CountryCodeToFlagEmoji(country_code);
     public Location Coordinates => new(latitude, longitude, elevation);
+
+    // https://stackoverflow.com/questions/47272182/how-to-convert-two-letter-country-codes-to-flag-emojis
+    public static string CountryCodeToFlagEmoji(string country)
+        => string.Concat(country.ToUpper().Select(code => char.ConvertFromUtf32(code + 0x1F1E6 - 0x41)));
 }
 

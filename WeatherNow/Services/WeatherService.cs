@@ -12,6 +12,24 @@ public class WeatherService : IWeatherService
         Timeout = TimeSpan.FromSeconds(5)
     };
 
+    public async Task<GeocodingResult[]> GetGeocodedCitiesAsync(string cityName)
+    {
+        string url = $"https://geocoding-api.open-meteo.com/v1/search?name={cityName}&count=10&language=en&format=json";
+
+        try
+        {
+            GeocodingResponse? response = await _client.GetFromJsonAsync<GeocodingResponse>(url);
+
+            if (response?.results == null) return null; // city name couln't be found ;(
+
+            return response.results;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
     public async Task<GeocodingResult?> GetGeocodedCityAsync(string cityName)
     {
         string url = $"https://geocoding-api.open-meteo.com/v1/search?name={cityName}&count=1&language=en&format=json";
@@ -30,21 +48,21 @@ public class WeatherService : IWeatherService
         }
     }
 
-    public async Task<Weather?> GetWeatherAsync(GeocodingResult city)
+    public async Task<WeatherResponse?> GetWeatherAsync(GeocodingResult city)
     {
-        Weather? weather = await GetWeatherAsync(city.Coordinates.Latitude, city.Coordinates.Longitude);
+        WeatherResponse? weather = await GetWeatherAsync(city.Coordinates.Latitude, city.Coordinates.Longitude);
 
         return weather;
     }
 
-    public async Task<Weather?> GetWeatherAsync(double latitude, double longitude)
+    public async Task<WeatherResponse?> GetWeatherAsync(double latitude, double longitude)
     {
-        string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto&forecast_days=1";
+        string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=uv_index_max,sunset,weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,wind_speed_10m,temperature_80m,weather_code&current=temperature_2m,relative_humidity_2m,surface_pressure,wind_speed_10m,weather_code&timezone=auto&forecast_days=3&forecast_hours=24";
 
         try
         {
             WeatherResponse? response = await _client.GetFromJsonAsync<WeatherResponse>(url);
-            return response?.current; // current weather
+            return response;
         }
         catch (Exception e)
         {

@@ -1,9 +1,12 @@
+using WeatherNow.ViewModels;
+
 namespace WeatherNow;
 
 public partial class SearchPage : ContentPage
 {
-	public SearchPage()
+	public SearchPage(SearchPageViewModel vm)
 	{
+		BindingContext = vm;
 		InitializeComponent();
 	}
 }

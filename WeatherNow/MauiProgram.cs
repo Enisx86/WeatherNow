@@ -19,6 +19,7 @@ namespace WeatherNow
 
             builder.Services.AddSingleton<IWeatherService, WeatherService>();
             builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddTransient<SearchPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
 
 
