@@ -9,11 +9,13 @@ namespace WeatherNow.ViewModels;
 public class SearchPageViewModel : INotifyPropertyChanged
 {
     private readonly IWeatherService _weatherService; // MauiProgram.cs
+    private readonly IFavoriteService _favoriteService;
 
     public ICommand SearchCommand { get; set; }
     public ICommand SelectCityCommand { get; set; } // sends them back to MainPage with updated city info
+    public ICommand FavoriteCommand { get; set; }
 
-    public ObservableCollection<GeocodingResult> AvailableCities { get; set; } = new();
+    public ObservableCollection<CityItem> AvailableCities { get; set; } = new();
 
     public bool IsNotSearching => !IsSearching;
     private bool _isSearching = false;
@@ -44,20 +46,22 @@ public class SearchPageViewModel : INotifyPropertyChanged
         }
     }
 
-    public SearchPageViewModel(IWeatherService weatherService)
+    public SearchPageViewModel(IWeatherService weatherService, IFavoriteService favoriteService)
     {
         _weatherService = weatherService;
+        _favoriteService = favoriteService;
 
         SearchCommand = new Command(SearchCities);
-        SelectCityCommand = new Command<GeocodingResult>(SelectCity);
+        SelectCityCommand = new Command<CityItem>(SelectCity);
+        FavoriteCommand = new Command<CityItem>(SetFavorite);
     }
 
-    private async void SelectCity(GeocodingResult city)
+    private async void SelectCity(CityItem cityItem)
     {
         // https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-10.0
         var navigationParameter = new Dictionary<string, object>
         {
-            { "City", city }
+            { "City", cityItem.City }
         };
 
         await Shell.Current.GoToAsync("//MainPage", navigationParameter); // routes are registered in AppShell.xaml
@@ -83,7 +87,8 @@ public class SearchPageViewModel : INotifyPropertyChanged
 
             foreach (GeocodingResult city in uniqueCities)
             {
-                AvailableCities.Add(city);
+                CityItem cityItem = new() { City = city, Favorite = _favoriteService.IsFavorite(city) };
+                AvailableCities.Add(cityItem);
             }
 
             IsSearching = false;
@@ -92,6 +97,12 @@ public class SearchPageViewModel : INotifyPropertyChanged
         {
 
         }
+    }
+
+    private void SetFavorite(CityItem cityItem)
+    {
+        cityItem.Favorite = !cityItem.Favorite;
+        _favoriteService.ToggleFavorite(cityItem.City);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

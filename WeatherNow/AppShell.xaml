@@ -17,4 +17,9 @@
         ContentTemplate="{DataTemplate local:SearchPage}"
         Route="SearchPage" />
 
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:FavoritesPage}"
+        Route="FavoritesPage" />
+
 </Shell>

@@ -18,8 +18,12 @@ namespace WeatherNow
                 });
 
             builder.Services.AddSingleton<IWeatherService, WeatherService>();
+            builder.Services.AddSingleton<IFavoriteService, FavoriteService>();
+
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<SearchPageViewModel>();
+            builder.Services.AddTransient<FavoritesPageViewModel>();
+
             builder.Services.AddSingleton<MainPage>();
 
 

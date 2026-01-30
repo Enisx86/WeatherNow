@@ -27,7 +27,7 @@
                             Padding="15,10"
                             StrokeShape="RoundRectangle 16">
 
-                        <Entry Text="{Binding SearchBarText, Mode=TwoWay}" Placeholder="Search here..." BackgroundColor="Transparent" />
+                        <Entry Text="{Binding SearchBarText, Mode=TwoWay}" Placeholder="Search here..." ReturnCommand="{Binding SearchCommand}" BackgroundColor="Transparent" />
                     </Border>
                         
                     <!-- Search button -->
@@ -44,7 +44,7 @@
                 <ActivityIndicator IsRunning="{Binding IsSearching}" IsVisible="{Binding IsSearching}" />
                 <VerticalStackLayout Padding="0,0,0,128" Spacing="24" BindableLayout.ItemsSource="{Binding AvailableCities}">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate x:DataType="models:GeocodingResult">
+                        <DataTemplate x:DataType="models:CityItem">
                             <Grid ColumnDefinitions="*,8*,*">
                                 <Border
                                     Grid.Column="1"
@@ -63,9 +63,22 @@
                                     
                                     <Grid ColumnDefinitions="*,Auto">
                                         <VerticalStackLayout Grid.Column="0">
-                                            <Label Text="{Binding name}" FontSize="20" TextColor="#222" FontAttributes="Bold" />
-                                            <Label Text="{Binding country}" FontSize="14" TextColor="#666" />
-                                            <Label Text="{Binding CountryEmoji}" FontSize="24" />
+                                            <Label Text="{Binding City.name}" FontSize="20" TextColor="#222" FontAttributes="Bold" />
+                                            <Label Text="{Binding City.country}" FontSize="14" TextColor="#666" />
+                                            <Label Text="{Binding City.CountryEmoji}" FontSize="24" Margin="0,0,0,10" />
+
+                                            <ImageButton Source="favorite.png" Clicked="Favorite_Clicked" MaximumHeightRequest="24" HorizontalOptions="Start" Margin="-12,0">
+                                                <ImageButton.Style>
+                                                    <Style TargetType="ImageButton">
+                                                        <Setter Property="Source" Value="favorite.png" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding Favorite}" Value="True">
+                                                                <Setter Property="Source" Value="favorite_fill.png" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ImageButton.Style>
+                                            </ImageButton>
                                         </VerticalStackLayout>
                                         <Label Grid.Column="1" Text="⟩" TextColor="#666" FontSize="20" VerticalOptions="Center" />
                                     </Grid>

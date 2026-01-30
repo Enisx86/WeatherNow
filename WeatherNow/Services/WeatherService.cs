@@ -27,6 +27,7 @@ public class WeatherService : IWeatherService
         }
         catch (Exception e)
         {
+            await Shell.Current.DisplayAlert("Error", $"Geocoding API failure. Message: {e.Message}", "OK");
             return null;
         }
     }
@@ -51,11 +52,7 @@ public class WeatherService : IWeatherService
     }
 
     public async Task<WeatherResponse?> GetWeatherAsync(GeocodingResult city)
-    {
-        WeatherResponse? weather = await GetWeatherAsync(city.latitude, city.longitude);
-
-        return weather;
-    }
+        => await GetWeatherAsync(city.latitude, city.longitude);
 
     public async Task<WeatherResponse?> GetWeatherAsync(double latitude, double longitude)
     {

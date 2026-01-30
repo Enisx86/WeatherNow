@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:WeatherNow.Models"
+             xmlns:vm="clr-namespace:WeatherNow.ViewModels"
+             xmlns:Controls="clr-namespace:WeatherNow.Controls"
+             x:Class="WeatherNow.FavoritesPage"
+             x:DataType="vm:FavoritesPageViewModel"
+             Title="FavoritesPage">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout>
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding AvailableFavorites}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:GeocodingResult">
+                            <Label Text="{Binding name}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Controls:FloatingNavbar ActiveTab="Favorites" />
+    </Grid>
+</ContentPage>

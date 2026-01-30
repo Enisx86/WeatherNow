@@ -12,9 +12,11 @@ public partial class FloatingNavbar : ContentView
 
         navbar.HomeButton.BackgroundColor = Colors.Transparent;
         navbar.SearchButton.BackgroundColor = Colors.Transparent;
+        navbar.FavoritesButton.BackgroundColor = Colors.Transparent;
 
         if (tab == "Home") navbar.HomeButton.BackgroundColor = Colors.LightBlue;
         if (tab == "Search") navbar.SearchButton.BackgroundColor = Colors.LightBlue;
+        if (tab == "Favorites") navbar.FavoritesButton.Background = Colors.LightBlue;
     });
 
     public string ActiveTab
@@ -42,5 +44,13 @@ public partial class FloatingNavbar : ContentView
         if (sender is not ImageButton button) return;
 
         await Shell.Current.GoToAsync("//SearchPage");
+    }
+
+    private async void Favorites_Clicked(object sender, EventArgs e)
+    {
+        if (ActiveTab == "Favorites") return; // don't refresh
+        if (sender is not ImageButton button) return;
+
+        await Shell.Current.GoToAsync("//FavoritesPage");
     }
 }

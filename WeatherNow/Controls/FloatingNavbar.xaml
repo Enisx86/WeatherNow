@@ -30,9 +30,9 @@
             <ImageButton x:Name="SearchButton" Grid.Column="1" 
                          Source="dotnet_bot.png" HeightRequest="64" 
                          Clicked="Search_Clicked" />
-            <ImageButton x:Name="Settings" Grid.Column="2" 
+            <ImageButton x:Name="FavoritesButton" Grid.Column="2" 
                          Source="dotnet_bot.png" HeightRequest="64" 
-                          />
+                         Clicked="Favorites_Clicked" />
         </Grid>
     </Border>
 </ContentView>
