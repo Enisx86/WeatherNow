@@ -26,27 +26,34 @@
 
                         <!-- Current weather-->
                         <Label
-                    Text="{Binding Weather.current.WeatherDescription}"
+                    Text="{Binding TodayForecast.WeatherDescription}"
                     FontSize="14"
                     TextColor="#666"
                     HorizontalTextAlignment="Center"/>
 
+                        <!-- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/data-binding/multibinding?view=net-maui-10.0 -->
                         <!-- Today's temperature range-->
                         <Label
-                    Text="{Binding Weather.daily.TodayTemperatureRange}"
                     FontSize="14"
                     TextColor="#666"
-                    HorizontalTextAlignment="Center" />
+                    HorizontalTextAlignment="Center">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0:0}°/{1:0}°">
+                                    <Binding Path="TodayForecast.TemperatureMin" />
+                                    <Binding Path="TodayForecast.TemperatureMax" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
 
                         <!-- Icon of current weather -->
                         <Image
-                    Source="dotnet_bot.png"
+                    Source="{Binding TodayForecast.WeatherIconSource}"
                     WidthRequest="120"
                     HeightRequest="120" />
 
                         <!-- Current temperature -->
                         <Label
-                    Text="{Binding Weather.current.TemperatureText}"
+                    Text="{Binding TodayForecast.CurrentTemperature, StringFormat='{}{0:0}°'}"
                     FontSize="72"
                     FontAttributes="Bold"
                     TextColor="#222"
@@ -54,73 +61,42 @@
 
                         <!-- Feels like -->
                         <Label
-                    Text="{Binding Weather.current.ApparentTemperatureText}"
+                    Text="{Binding TodayForecast.ApparentTemperature, StringFormat='{}Feels like {0:0}°'}"
                     FontSize="14"
                     TextColor="#666"
                     HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
 
                     <!-- Small forecast rows: -->
-                    <VerticalStackLayout Spacing="10" HorizontalOptions="FillAndExpand">
-
-                        <!-- Today row -->
-                        <Border
+                    <VerticalStackLayout Spacing="10" HorizontalOptions="FillAndExpand" BindableLayout.ItemsSource="{Binding DailyForecasts}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:DailyForecast">
+                                <Border
                             Stroke="#C7DEF5"
                             StrokeThickness="1"
                             BackgroundColor="#F4F9FF"
                             StrokeShape="RoundRectangle 16"
                             Padding="12">
 
-                            <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
-                                <Label Text="Today" FontSize="16" TextColor="#222"
+                                    <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
+                                        <Label Text="{Binding DayName}" FontSize="16" TextColor="#222"
                                       VerticalTextAlignment="Center" HorizontalOptions="Start"/>
-                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
+                                        <Image Source="{Binding WeatherIconSource}" WidthRequest="40" HeightRequest="40"
                                        HorizontalOptions="Center"/>
-                                <Label Text="{Binding Weather.daily.TodayTemperatureRange}"
+                                        <Label
                                        FontSize="14" TextColor="#666"
-                                       VerticalTextAlignment="Center" HorizontalOptions="End"/>
-                            </Grid>
-                        </Border>
-
-
-                        <!-- Tomorrow row -->
-                        <Border
-                            Stroke="#C7DEF5"
-                            StrokeThickness="1"
-                            BackgroundColor="#F4F9FF"
-                            StrokeShape="RoundRectangle 16"
-                            Padding="12">
-
-                            <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
-                                <Label Text="Tomorrow" FontSize="16" TextColor="#222"
-                                      VerticalTextAlignment="Center" HorizontalOptions="Start"/>
-                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
-                                       HorizontalOptions="Center"/>
-                                <Label Text="{Binding Weather.daily.TodayTemperatureRange}"
-                                       FontSize="14" TextColor="#666"
-                                       VerticalTextAlignment="Center" HorizontalOptions="End"/>
-                            </Grid>
-                        </Border>
-
-                        <!-- Wednesday row -->
-                        <Border
-                            Stroke="#C7DEF5"
-                            StrokeThickness="1"
-                            BackgroundColor="#F4F9FF"
-                            StrokeShape="RoundRectangle 16"
-                            Padding="12">
-
-                            <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
-                                <Label Text="Wednesday" FontSize="16" TextColor="#222"
-                                      VerticalTextAlignment="Center" HorizontalOptions="Start"/>
-                                <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"
-                                       HorizontalOptions="Center"/>
-                                <Label Text="{Binding Weather.daily.TodayTemperatureRange}"
-                                       FontSize="14" TextColor="#666"
-                                       VerticalTextAlignment="Center" HorizontalOptions="End"/>
-                            </Grid>
-                        </Border>
-
+                                       VerticalTextAlignment="Center" HorizontalOptions="End">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0:0}°/{1:0}°">
+                                                    <Binding Path="TemperatureMin" />
+                                                    <Binding Path="TemperatureMax" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
                     </VerticalStackLayout>
 
                     <!-- 24-Hour forecast: -->
@@ -128,12 +104,11 @@
                         <HorizontalStackLayout Spacing="20" Padding="0,10,0,10" HorizontalOptions="Center" BindableLayout.ItemsSource="{Binding HourlyForecasts}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="models:HourlyForecast">
-                                    <!-- Hour 1 -->
                                     <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                                        <Label Text="{Binding Temperature}" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
-                                        <Image Source="dotnet_bot.png" WidthRequest="40" HeightRequest="40"/>
-                                        <Label Text="{Binding WindSpeed}" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
-                                        <Label Text="{Binding Time}" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding Temperature, StringFormat='{}{0:0}°'}" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                        <Image Source="{Binding WeatherIconSource}" WidthRequest="40" HeightRequest="40"/>
+                                        <Label Text="{Binding Windspeed, StringFormat='{}{0:0} km/h'}" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding TimeText}" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
                                     </VerticalStackLayout>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
@@ -162,10 +137,10 @@
                                     <FlexLayout JustifyContent="SpaceBetween" Margin="0,0,0,10">
                                         <Label Text="Humidity" FontSize="16" TextColor="#666"
                                         HorizontalTextAlignment="Start"/>
-                                        <Label  Text="{Binding Weather.current.relative_humidity_2m, StringFormat='{0}%'}" FontSize="16" TextColor="{Binding HumidityMeterColor}" FontAttributes="Bold"
+                                        <Label  Text="{Binding TodayForecast.Humidity, StringFormat='{}{0}%'}" FontSize="16" TextColor="{Binding TodayForecast.HumidityMeterColor}" FontAttributes="Bold"
                                         HorizontalTextAlignment="Start"/>
                                     </FlexLayout>
-                                    <Controls:ProgressMeter Progress="{Binding Weather.current.HumidityPercent}" ProgressColor="{Binding HumidityMeterColor}" />
+                                    <Controls:ProgressMeter Progress="{Binding TodayForecast.HumidityPercent}" ProgressColor="{Binding TodayForecast.HumidityMeterColor}" />
                                 </VerticalStackLayout>
                             </Border>
 
@@ -182,10 +157,10 @@
                                     <FlexLayout JustifyContent="SpaceBetween" Margin="0,0,0,10">
                                         <Label Text="Wind" FontSize="16" TextColor="#666"
                                         HorizontalTextAlignment="Start"/>
-                                        <Label Text="{Binding Weather.current.wind_speed_10m, StringFormat='{0} km/h'}" FontSize="16" TextColor="{Binding WindMeterColor}" FontAttributes="Bold"
+                                        <Label Text="{Binding TodayForecast.Windspeed, StringFormat='{}{0} km/h'}" FontSize="16" TextColor="{Binding TodayForecast.WindspeedMeterColor}" FontAttributes="Bold"
                                         HorizontalTextAlignment="Start"/>
                                     </FlexLayout>
-                                    <Controls:ProgressMeter Progress="{Binding Weather.current.WindSpeedPercent}" ProgressColor="{Binding WindMeterColor}" />
+                                    <Controls:ProgressMeter Progress="{Binding TodayForecast.WindspeedPercent}" ProgressColor="{Binding TodayForecast.WindspeedMeterColor}" />
                                 </VerticalStackLayout>
                             </Border>
 
@@ -199,13 +174,10 @@
                         Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
-                                    <FlexLayout JustifyContent="Center" Margin="0,0,0,10" Wrap="Wrap">
-                                        <Label Text="Pressure" FontSize="16" TextColor="#666"
-                                        HorizontalTextAlignment="Start"/>
-                                        <Label Text="{Binding Weather.current.pressure_msl, StringFormat='{0} hPa'}" FontSize="16" TextColor="{Binding PressureMeterColor}" FontAttributes="Bold"
-                                        HorizontalTextAlignment="Start"/>
-                                    </FlexLayout>
-                                    <Controls:ProgressMeter Progress="{Binding Weather.current.PressurePercent}" ProgressColor="{Binding PressureMeterColor}" />
+                                    <Label Text="Pressure" FontSize="16" TextColor="#666" HorizontalTextAlignment="Start" Margin="0,0,0,5"/>
+                                    <Label Text="{Binding TodayForecast.Pressure, StringFormat='{}{0} hPa'}" FontSize="18" TextColor="{Binding TodayForecast.PressureTextColor}" FontAttributes="Bold"
+                                        HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding TodayForecast.PressureDescription}" FontSize="12" TextColor="{Binding TodayForecast.PressureTextColor}" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                                 </VerticalStackLayout>
                             </Border>
 
@@ -219,8 +191,10 @@
                         Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
-                                    <Label Text="Visibility" FontSize="14" TextColor="#666"
-                                   HorizontalTextAlignment="Start"/>
+                                    <Label Text="Visibility" FontSize="16" TextColor="#666" HorizontalTextAlignment="Start" Margin="0,0,0,5"/>
+                                    <Label Text="{Binding TodayForecast.VisibilityKilometers, StringFormat='{}{0} km'}" FontSize="18" TextColor="{Binding TodayForecast.VisibilityTextColor}" FontAttributes="Bold"
+                                        HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding TodayForecast.VisibilityDescription}" FontSize="12" TextColor="{Binding TodayForecast.VisibilityTextColor}" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                                 </VerticalStackLayout>
                             </Border>
 
@@ -234,8 +208,14 @@
                         Stroke="#C7DEF5"
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
-                                    <Label Text="UV Index" FontSize="14" TextColor="#666"
-                                   HorizontalTextAlignment="Start"/>
+                                    <FlexLayout JustifyContent="SpaceBetween" Margin="0,0,0,10">
+                                        <Label Text="UV Index" FontSize="16" TextColor="#666"
+                                        HorizontalTextAlignment="Start"/>
+                                        <Label Text="{Binding TodayForecast.UVIndexMax}" FontSize="16" TextColor="{Binding TodayForecast.UVIndexMeterColor}" FontAttributes="Bold"
+                                        HorizontalTextAlignment="Start"/>
+                                    </FlexLayout>
+                                    <Controls:ProgressMeter Progress="{Binding TodayForecast.UVIndexMaxPercent}" ProgressColor="{Binding TodayForecast.UVIndexMeterColor}" />
+
                                 </VerticalStackLayout>
                             </Border>
 

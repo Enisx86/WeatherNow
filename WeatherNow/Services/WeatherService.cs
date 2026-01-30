@@ -59,7 +59,7 @@ public class WeatherService : IWeatherService
 
     public async Task<WeatherResponse?> GetWeatherAsync(double latitude, double longitude)
     {
-        string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=uv_index_max,sunset,weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,wind_speed_10m,temperature_80m,weather_code&current=temperature_2m,apparent_temperature,relative_humidity_2m,surface_pressure,pressure_msl,wind_speed_10m,weather_code&timezone=auto&forecast_days=3&forecast_hours=24";
+        string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=uv_index_max,sunset,weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,wind_speed_10m,temperature_80m,visibility,weather_code&current=temperature_2m,apparent_temperature,relative_humidity_2m,surface_pressure,pressure_msl,wind_speed_10m,weather_code&timezone=auto&forecast_days=3&forecast_hours=24";
 
         try
         {

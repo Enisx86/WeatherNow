@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.Json;
+using WeatherNow.Drawables;
 using WeatherNow.Models;
 using WeatherNow.Services;
 
@@ -11,7 +12,19 @@ public class MainViewModel : INotifyPropertyChanged, IQueryAttributable
 {
     private readonly IWeatherService _weatherService; // MauiProgram.cs
 
+    public ObservableCollection<DailyForecast> DailyForecasts { get; set; } = new();
     public ObservableCollection<HourlyForecast> HourlyForecasts { get; set; } = new();
+
+    private TodayForecast _todayForecast;
+    public TodayForecast TodayForecast
+    {
+        get => _todayForecast;
+        set
+        {
+            _todayForecast = value;
+            OnPropertyChanged(nameof(TodayForecast));
+        }
+    }
 
     private GeocodingResult _city;
     public GeocodingResult City
@@ -39,38 +52,15 @@ public class MainViewModel : INotifyPropertyChanged, IQueryAttributable
 
             if (_weather is not null)
             {
-                ParseHourlyForecasts();
-
-                HumidityMeterColor = GetHumidityMeterColor(Weather?.current.HumidityPercent);
-                WindMeterColor = GetWindMeterColor(Weather?.current.WindSpeedPercent);
-                PressureMeterColor = GetPressureMeterColor(Weather?.current.PressurePercent);
+                LoadTodayForecast();
+                LoadDailyForecasts();
+                LoadHourlyForecasts();
             }
         }
     }
 
-    private Color _humidityMeterColor = Colors.LightGray;
-    public Color HumidityMeterColor
-    {
-        get => _humidityMeterColor;
-        set { _humidityMeterColor = value; OnPropertyChanged(nameof(HumidityMeterColor)); }
-    }
-
-    private Color _windMeterColor = Colors.LightGray;
-    public Color WindMeterColor
-    {
-        get => _windMeterColor;
-        set { _windMeterColor = value; OnPropertyChanged(nameof(WindMeterColor)); }
-    }
-
-    private Color _pressureMeterColor = Colors.LightGray;
-    public Color PressureMeterColor
-    {
-        get => _pressureMeterColor;
-        set { _pressureMeterColor = value; OnPropertyChanged(nameof(PressureMeterColor)); }
-    }
-
     public bool IsValidCity => City != null; // only show data if city is visible
-    public bool IsNotValidCity => !IsValidCity; 
+    public bool IsNotValidCity => !IsValidCity;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -107,68 +97,78 @@ public class MainViewModel : INotifyPropertyChanged, IQueryAttributable
             OnPropertyChanged(nameof(IsNotValidCity));
         }
     }
-    
-    // from light blue to red depending on wind speed
-    public Color GetHumidityMeterColor(double? humidityPercent)
-    {
-        if (humidityPercent is null) return Colors.LightGray;
 
-        return humidityPercent switch
+    private void LoadTodayForecast()
+    {
+        if (Weather is null) return;
+
+        TodayForecast = new TodayForecast
         {
-            < 0.30 => Colors.MediumAquamarine,
-            <= 0.55 => Colors.CornflowerBlue,
-            <= 0.75 => Colors.DodgerBlue,
-            _ => Colors.RoyalBlue
+            WeatherCode = (WeatherCode)Weather.current.weather_code,
+
+            TemperatureMin = Weather.daily.temperature_2m_min[0],
+            TemperatureMax = Weather.daily.temperature_2m_max[0],
+
+            Windspeed = Weather.current.wind_speed_10m,
+
+            Humidity = Weather.current.relative_humidity_2m,
+            Pressure = Weather.current.pressure_msl,
+
+            Visibility = Weather.hourly.visibility[0], // visiblity[0] is the visibility (meters) of this current hour
+            UVIndexMax = Weather.daily.uv_index_max[0],
+
+            CurrentTemperature = Weather.current.temperature_2m,
+            ApparentTemperature = Weather.current.apparent_temperature
         };
     }
 
-    public Color GetWindMeterColor(double? windSpeedDangerPercent)
+    private void LoadDailyForecasts()
     {
-        if (windSpeedDangerPercent is null) return Colors.LightGray;
+        if (Weather is null) return;
 
-        return windSpeedDangerPercent switch
+        DailyForecasts.Clear();
+
+        // time[] is an array of 3 date strings (today, tomorrow, day after tomorrow)
+        for (int i = 0; i < Weather.daily.time.Length; i++)
         {
-            < 0.15 => Colors.MediumSeaGreen,
-            <= 0.40 => Colors.SeaGreen,
-            <= 0.75 => Colors.Goldenrod,
-            _ => Colors.Red
-        };
+            DailyForecast forecast = new DailyForecast
+            {
+                WeatherCode = (WeatherCode)Weather.daily.weather_code[i],
+
+                TemperatureMin = Weather.daily.temperature_2m_min[i],
+                TemperatureMax = Weather.daily.temperature_2m_max[i],
+
+                Time = DateTime.Parse(Weather.daily.time[i])
+            };
+
+            DailyForecasts.Add(forecast);
+        }
     }
 
-    public Color GetPressureMeterColor(double? pressurePercent)
-    {
-        if (pressurePercent is null) return Colors.LightGray;
-
-        return pressurePercent switch
-        {
-            < 0.30 => Colors.Red,
-            <= 0.75 => Colors.MediumSeaGreen,
-            _ => Colors.Orange
-        };
-    }
-
-    private void ParseHourlyForecasts()
+    private void LoadHourlyForecasts()
     {
         if (Weather is null) return;
         
         HourlyForecasts.Clear();
 
-        int i = 0;
-        foreach (string time in Weather.hourly.time) // time is an array of dates by API
+        // time[] is an array of 24 date strings corresponding to each hour
+        for (int i = 0; i < Weather.hourly.time.Length; i++)
         {
-            string clockTime = DateTime.Parse(time).ToString("HH:mm"); // 24h clock
-            string temperature = $"{Weather.hourly.temperature_2m[i]:0}°";
-            string windSpeed = $"{Weather.hourly.wind_speed_10m[i]:0} km/h";
+            HourlyForecast forecast = new HourlyForecast
+            {
+                WeatherCode = (WeatherCode)Weather.hourly.weather_code[i],
 
-            HourlyForecasts.Add(new HourlyForecast { Time = clockTime, Temperature = temperature, WindSpeed = windSpeed });
-            i++;
+                Time = DateTime.Parse(Weather.hourly.time[i]),
+                Windspeed = Weather.hourly.wind_speed_10m[i],
+                Temperature = Weather.hourly.temperature_2m[i]
+            };
+
+            HourlyForecasts.Add(forecast);
         }
     }
 
     private async Task LoadWeather()
-    {
-        Weather = await _weatherService.GetWeatherAsync(City);
-    }
+        => Weather = await _weatherService.GetWeatherAsync(City);
 
     protected void OnPropertyChanged(string propertyName)
      => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
