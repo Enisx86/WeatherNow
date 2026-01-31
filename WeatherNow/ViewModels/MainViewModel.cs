@@ -160,7 +160,9 @@ public class MainViewModel : INotifyPropertyChanged, IQueryAttributable
 
                 Time = DateTime.Parse(Weather.hourly.time[i]),
                 Windspeed = Weather.hourly.wind_speed_10m[i],
-                Temperature = Weather.hourly.temperature_2m[i]
+                Temperature = Weather.hourly.temperature_2m[i],
+
+                IsNow=i==0 //The first card is "Now"   -Enis
             };
 
             HourlyForecasts.Add(forecast);

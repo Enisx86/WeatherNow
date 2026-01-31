@@ -110,14 +110,14 @@ public record DailyForecast
     }
 }
 
+// I marked the first hour to say Now   -Enis
 public record HourlyForecast
 {
     public WeatherCode WeatherCode { get; set; }
     public string WeatherIconSource => WeatherCode.ToIconSource();
-
     public DateTime Time { get; set; }
     public float Windspeed { get; set; }
     public float Temperature { get; set; }
-
-    public string TimeText => Time.ToString("HH:mm"); // 24h clock
+    public bool IsNow { get; set; }
+    public string TimeText => IsNow ? "Now" : Time.ToString("HH:mm"); // 24h clock
 }
