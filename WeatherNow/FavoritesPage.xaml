@@ -7,6 +7,14 @@
              x:Class="WeatherNow.FavoritesPage"
              x:DataType="vm:FavoritesPageViewModel"
              Title="FavoritesPage">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E3F2FD" Offset="0.0" />
+            <GradientStop Color="#90CAF9" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
     <Grid>
         <ScrollView>
             <VerticalStackLayout>

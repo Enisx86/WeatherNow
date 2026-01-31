@@ -6,9 +6,14 @@
              xmlns:Controls="clr-namespace:WeatherNow.Controls"
              x:DataType="vm:SearchPageViewModel"
              x:Class="WeatherNow.SearchPage"
-             Title="SearchPage"
-             BackgroundColor="#EAF4FF">
-    
+             Title="SearchPage">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E3F2FD" Offset="0.0" />
+            <GradientStop Color="#90CAF9" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
     <!-- 
         i have no idea why the floating navbar still works, it's honestly black magic
         don't mess up the layouts though, bcuz .NET MAUI loves trolling and i can't figure this out again

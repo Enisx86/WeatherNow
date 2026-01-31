@@ -6,8 +6,13 @@
     xmlns:models="clr-namespace:WeatherNow.Models"
     xmlns:Controls="clr-namespace:WeatherNow.Controls"
     x:DataType="vm:MainViewModel"
-    x:Class="WeatherNow.MainPage"
-    BackgroundColor="#EAF4FF">
+    x:Class="WeatherNow.MainPage">
+    <ContentPage.Background>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#E3F2FD" Offset="0.0" />
+        <GradientStop Color="#90CAF9" Offset="1.0" />
+    </LinearGradientBrush>
+    </ContentPage.Background>
 
     <Grid>
         <ScrollView>
@@ -68,13 +73,14 @@
                     </VerticalStackLayout>
 
                     <!-- Small forecast rows: -->
+                    <!-- The alignment is off centre, to the left, idk how to fix... -Enis-->
                     <VerticalStackLayout Spacing="10" HorizontalOptions="FillAndExpand" BindableLayout.ItemsSource="{Binding DailyForecasts}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:DailyForecast">
                                 <Border
                             Stroke="#C7DEF5"
                             StrokeThickness="1"
-                            BackgroundColor="#F4F9FF"
+                            BackgroundColor="#66FFFFFF"
                             StrokeShape="RoundRectangle 16"
                             Padding="12">
 
@@ -104,12 +110,22 @@
                         <HorizontalStackLayout Spacing="20" Padding="0,10,0,10" HorizontalOptions="Center" BindableLayout.ItemsSource="{Binding HourlyForecasts}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="models:HourlyForecast">
-                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                    <Border
+                                        Stroke="#FFFFFF"
+                                        StrokeThickness="1"
+                                        BackgroundColor="#66FFFFFF"
+                                        StrokeShape="RoundRectangle 16"
+                                        Padding="10"
+                                        HorizontalOptions="Center">
+
+                                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
                                         <Label Text="{Binding Temperature, StringFormat='{}{0:0}°'}" FontSize="14" TextColor="#666" HorizontalTextAlignment="Center"/>
                                         <Image Source="{Binding WeatherIconSource}" WidthRequest="40" HeightRequest="40"/>
                                         <Label Text="{Binding Windspeed, StringFormat='{}{0:0} km/h'}" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
                                         <Label Text="{Binding TimeText}" FontSize="12" TextColor="#666" HorizontalTextAlignment="Center"/>
                                     </VerticalStackLayout>
+                                    
+                                    </Border>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </HorizontalStackLayout>
