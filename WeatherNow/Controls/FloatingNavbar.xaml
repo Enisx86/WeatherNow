@@ -25,13 +25,13 @@
 
         <Grid ColumnDefinitions="*,*,*">
             <ImageButton x:Name="HomeButton" Grid.Column="0" 
-                         Source="dotnet_bot.png" HeightRequest="64"
+                         Source="pcloudy.png" HeightRequest="48"
                          Clicked="Home_Clicked" />
             <ImageButton x:Name="SearchButton" Grid.Column="1" 
-                         Source="dotnet_bot.png" HeightRequest="64" 
+                         Source="location_pin.png" HeightRequest="48" 
                          Clicked="Search_Clicked" />
             <ImageButton x:Name="FavoritesButton" Grid.Column="2" 
-                         Source="dotnet_bot.png" HeightRequest="64" 
+                         Source="favorite_fill.png" HeightRequest="48" 
                          Clicked="Favorites_Clicked" />
         </Grid>
     </Border>
