@@ -73,7 +73,6 @@
                     </VerticalStackLayout>
 
                     <!-- Small forecast rows: -->
-                    <!-- The alignment is off centre, to the left, idk how to fix... -Enis-->
                     <VerticalStackLayout Spacing="10" HorizontalOptions="FillAndExpand" BindableLayout.ItemsSource="{Binding DailyForecasts}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:DailyForecast">
@@ -84,13 +83,13 @@
                             StrokeShape="RoundRectangle 16"
                             Padding="12">
 
-                                    <Grid ColumnDefinitions="*,Auto,*" VerticalOptions="Center">
-                                        <Label Text="{Binding DayName}" FontSize="16" TextColor="#222"
+                                    <Grid ColumnDefinitions="2*,*,2*" ColumnSpacing="12" VerticalOptions="Center">
+                                        <Label Grid.Column="0" Text="{Binding DayName}" FontSize="16" TextColor="#222"
                                       VerticalTextAlignment="Center" HorizontalOptions="Start"/>
-                                        <Image Source="{Binding WeatherIconSource}" WidthRequest="40" HeightRequest="40"
+                                        <Image Grid.Column="1"  Source="{Binding WeatherIconSource}" WidthRequest="40" HeightRequest="40"
                                        HorizontalOptions="Center"/>
                                         <Label
-                                       FontSize="14" TextColor="#666"
+                                       Grid.Column="2" FontSize="14" TextColor="#666"
                                        VerticalTextAlignment="Center" HorizontalOptions="End">
                                             <Label.Text>
                                                 <MultiBinding StringFormat="{}{0:0}°/{1:0}°">
@@ -261,11 +260,33 @@
                     Padding="15"
                     HorizontalOptions="FillAndExpand">
 
-                            <HorizontalStackLayout Spacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
-                                <Label Text="AQI 114" FontSize="16" FontAttributes="Bold" TextColor="#FF9800" VerticalTextAlignment="Center"/>
-                                <Label Text="Moderate" FontSize="14" TextColor="#FF9800" VerticalTextAlignment="Center"/>
-                                <Label Text="Wear a mask" FontSize="14" TextColor="#FF9800" VerticalTextAlignment="Center"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center">
+
+                                <Label
+                                    Grid.Column="0"
+                                    Text="AQI 114"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="#FF9800"
+                                    VerticalTextAlignment="Center" />
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="Moderate"
+                                    FontSize="14"
+                                    TextColor="#FF9800"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center" />
+
+                                <Label
+                                    Grid.Column="2"
+                                    Text="Wear a mask"
+                                    FontSize="14"
+                                    TextColor="#FF9800"
+                                    VerticalTextAlignment="Center" />
+
+                            </Grid>
+
                         </Border>
 
                     </VerticalStackLayout>
