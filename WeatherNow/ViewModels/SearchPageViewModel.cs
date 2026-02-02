@@ -14,8 +14,9 @@ public class SearchPageViewModel : INotifyPropertyChanged
     public ICommand SearchCommand { get; set; }
     public ICommand SelectCityCommand { get; set; } // sends them back to MainPage with updated city info
     public ICommand FavoriteCommand { get; set; }
+    public ICommand RefreshFavoritesCommand { get; set; }
 
-    public ObservableCollection<CityItem> AvailableCities { get; set; } = new();
+    public ObservableCollection<GeocodingResult> AvailableCities { get; set; } = new();
 
     public bool IsNotSearching => !IsSearching;
     private bool _isSearching = false;
@@ -52,16 +53,17 @@ public class SearchPageViewModel : INotifyPropertyChanged
         _favoriteService = favoriteService;
 
         SearchCommand = new Command(SearchCities);
-        SelectCityCommand = new Command<CityItem>(SelectCity);
-        FavoriteCommand = new Command<CityItem>(SetFavorite);
+        SelectCityCommand = new Command<GeocodingResult>(SelectCity);
+        FavoriteCommand = new Command<GeocodingResult>(SetFavorite);
+        RefreshFavoritesCommand = new Command(RefreshFavorites);
     }
 
-    private async void SelectCity(CityItem cityItem)
+    private async void SelectCity(GeocodingResult city)
     {
         // https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-10.0
         var navigationParameter = new Dictionary<string, object>
         {
-            { "City", cityItem.City }
+            { "City", city }
         };
 
         await Shell.Current.GoToAsync("//MainPage", navigationParameter); // routes are registered in AppShell.xaml
@@ -87,8 +89,8 @@ public class SearchPageViewModel : INotifyPropertyChanged
 
             foreach (GeocodingResult city in uniqueCities)
             {
-                CityItem cityItem = new() { City = city, Favorite = _favoriteService.IsFavorite(city) };
-                AvailableCities.Add(cityItem);
+                city.Favorite = _favoriteService.IsFavorite(city);
+                AvailableCities.Add(city);
             }
 
             IsSearching = false;
@@ -99,10 +101,26 @@ public class SearchPageViewModel : INotifyPropertyChanged
         }
     }
 
-    private void SetFavorite(CityItem cityItem)
+    private void RefreshFavorites()
     {
-        cityItem.Favorite = !cityItem.Favorite;
-        _favoriteService.ToggleFavorite(cityItem.City);
+        List<GeocodingResult> favorites = _favoriteService.GetFavorites();
+
+        foreach (GeocodingResult city in AvailableCities)
+        {
+            bool isFavorited = favorites.Any(favCity => favCity.id == city.id);
+
+            if (city.Favorite != isFavorited)
+            {
+                // mismatch. UI state doesn't reflect the global state, refresh!
+                city.Favorite = isFavorited;
+            }
+        }
+    }
+
+    private void SetFavorite(GeocodingResult city)
+    {
+        city.Favorite = !city.Favorite;
+        _favoriteService.ToggleFavorite(city);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

@@ -14,9 +14,9 @@ public partial class FloatingNavbar : ContentView
         navbar.SearchButton.BackgroundColor = Colors.Transparent;
         navbar.FavoritesButton.BackgroundColor = Colors.Transparent;
 
-        if (tab == "Home") navbar.HomeButton.BackgroundColor = Colors.LightBlue;
-        if (tab == "Search") navbar.SearchButton.BackgroundColor = Colors.LightBlue;
-        if (tab == "Favorites") navbar.FavoritesButton.Background = Colors.LightBlue;
+        if (tab == "Home") navbar.HomeButton.BackgroundColor = Color.FromArgb("#C7DEF5");
+        if (tab == "Search") navbar.SearchButton.BackgroundColor = Color.FromArgb("#C7DEF5");
+        if (tab == "Favorites") navbar.FavoritesButton.Background = Color.FromArgb("#C7DEF5");
     });
 
     public string ActiveTab

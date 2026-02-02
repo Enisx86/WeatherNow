@@ -18,10 +18,49 @@
     <Grid>
         <ScrollView>
             <VerticalStackLayout>
+                <Label Text="My Favorites" FontSize="24" FontAttributes="Bold" Margin="0,24,0,24" HorizontalTextAlignment="Center" />
                 <VerticalStackLayout BindableLayout.ItemsSource="{Binding AvailableFavorites}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="models:GeocodingResult">
-                            <Label Text="{Binding name}" />
+                            <Grid ColumnDefinitions="*,8*,*">
+                                <Border
+                                    Grid.Column="1"
+                                    Stroke="#C7DEF5"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 20"
+                                    BackgroundColor="#F4F9FF"
+                                    Padding="20">
+                                    <Border.Shadow>
+                                        <Shadow Brush="Black" Offset="1,2" Opacity="0.12" />
+                                    </Border.Shadow>
+
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnCardTapped" />
+                                    </Border.GestureRecognizers>
+
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout Grid.Column="0">
+                                            <Label Text="{Binding name}" FontSize="20" TextColor="#222" FontAttributes="Bold" />
+                                            <Label Text="{Binding country}" FontSize="14" TextColor="#666" />
+                                            <Label Text="{Binding CountryEmoji}" FontSize="24" Margin="0,0,0,10" />
+
+                                            <ImageButton Clicked="Favorite_Clicked" MaximumHeightRequest="24" HorizontalOptions="Start" Margin="-12,0">
+                                                <ImageButton.Style>
+                                                    <Style TargetType="ImageButton">
+                                                        <Setter Property="Source" Value="favorite.png" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding Favorite}" Value="True">
+                                                                <Setter Property="Source" Value="favorite_fill.png" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ImageButton.Style>
+                                            </ImageButton>
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="1" Text="⟩" TextColor="#666" FontSize="20" VerticalOptions="Center" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </VerticalStackLayout>

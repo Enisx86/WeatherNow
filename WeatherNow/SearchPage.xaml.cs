@@ -14,15 +14,24 @@ public partial class SearchPage : ContentPage
 		InitializeComponent();
 	}
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is not SearchPageViewModel vm) return;
+
+        vm.RefreshFavoritesCommand.Execute(null);
+    }
+
     private async void OnCardTapped(object sender, TappedEventArgs e)
     {
 		Border card = (Border)sender;
 
-		await card.ScaleTo(0.95, 50, Easing.CubicOut);
-        await card.ScaleTo(1.0, 50, Easing.CubicIn);
+		await card.ScaleTo(0.85, 50, Easing.CubicOut);
+        await card.ScaleTo(1, 50, Easing.CubicIn);
 
 		if (BindingContext is not SearchPageViewModel vm) return;
-		if (card.BindingContext is not CityItem city) return;
+		if (card.BindingContext is not GeocodingResult city) return;
 
 		vm.SelectCityCommand.Execute(city);
     }
@@ -32,10 +41,10 @@ public partial class SearchPage : ContentPage
         ImageButton fav = (ImageButton)sender;
 
         if (BindingContext is not SearchPageViewModel vm) return;
-        if (fav.BindingContext is not CityItem city) return;
+        if (fav.BindingContext is not GeocodingResult city) return;
 
-        await fav.ScaleTo(0.95, 50, Easing.CubicOut);
-        await fav.ScaleTo(1.0, 50, Easing.CubicIn);
+        await fav.ScaleTo(0.85, 150, Easing.CubicOut);
+        await fav.ScaleTo(1.0, 150, Easing.CubicIn);
 
         vm.FavoriteCommand.Execute(city);
     }
