@@ -73,13 +73,20 @@ public class SearchPageViewModel : INotifyPropertyChanged
     {
         try
         {
+            // don't waste precious resources on an empty dumb search request
+            if (SearchBarText.Length == 0) return;
+
             if (IsSearching) return;
             IsSearching = true;
 
             AvailableCities.Clear();
 
             GeocodingResult[] cities = await _weatherService.GetGeocodedCitiesAsync(SearchBarText);
-            if (cities == null) return;
+            if (cities == null)
+            {
+                IsSearching = false;
+                return;
+            }
 
             List<GeocodingResult> uniqueCities = cities
                 .DistinctBy(c => new {c.name, c.country}) // prevent duplicates from the same country
