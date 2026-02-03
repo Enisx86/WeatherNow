@@ -244,8 +244,12 @@
                         Stroke="#C7DEF5" 
                         Padding="15">
                                 <VerticalStackLayout HorizontalOptions="FillAndExpand">
-                                    <Label Text="Sunset" FontSize="14" TextColor="#666"
+                                    <Label Text="Phases" FontSize="14" TextColor="#666"
                                    HorizontalTextAlignment="Start"/>
+                                    <VerticalStackLayout Margin="0,10" HorizontalOptions="Center">
+                                        <Label Text="{Binding TodayForecast.Sunrise, StringFormat='Sunrise: {0}'}" TextColor="DarkOrange" FontSize="18" />
+                                        <Label Text="{Binding TodayForecast.Sunset, StringFormat='Sunset:  {0}'}" TextColor="DarkBlue" FontSize="18" />
+                                    </VerticalStackLayout>
                                 </VerticalStackLayout>
                             </Border>
 

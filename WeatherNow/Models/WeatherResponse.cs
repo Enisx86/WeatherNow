@@ -144,6 +144,7 @@ public class Daily
 {
     public string[] time { get; set; }
     public float[] uv_index_max { get; set; }
+    public string[] sunrise { get; set; }
     public string[] sunset { get; set; }
     public int[] weather_code { get; set; }
     public float[] temperature_2m_max { get; set; }

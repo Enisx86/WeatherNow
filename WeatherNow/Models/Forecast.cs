@@ -13,6 +13,9 @@ public record TodayForecast
     public float TemperatureMin { get; set; }
     public float TemperatureMax { get; set; }
 
+    public string Sunrise { get; set; } // 24h clock
+    public string Sunset { get; set; }
+         
     public float Windspeed { get; set; } // km/h
     public double WindspeedPercent => Math.Clamp(Windspeed / 120.0, 0, 1.0); // from 0.0 to 1.0 for the UI meter
     public Color WindspeedMeterColor => Windspeed switch

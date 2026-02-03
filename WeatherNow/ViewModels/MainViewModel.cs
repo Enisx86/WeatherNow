@@ -114,6 +114,9 @@ public class MainViewModel : INotifyPropertyChanged, IQueryAttributable
             Humidity = Weather.current.relative_humidity_2m,
             Pressure = Weather.current.pressure_msl,
 
+            Sunrise = DateTime.Parse(Weather.daily.sunrise[0]).ToString("HH:mm"),
+            Sunset = DateTime.Parse(Weather.daily.sunset[0]).ToString("HH:mm"),
+
             Visibility = Weather.hourly.visibility[0], // visiblity[0] is the visibility (meters) of this current hour
             UVIndexMax = Weather.daily.uv_index_max[0],
 
